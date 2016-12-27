@@ -8,8 +8,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.*;
+import ru.stqa.pft.addressbook.tests.TestBase;
 
-public class ContactCreation {
+public class ContactCreation extends TestBase{
     FirefoxDriver wd;
     
     @BeforeMethod
