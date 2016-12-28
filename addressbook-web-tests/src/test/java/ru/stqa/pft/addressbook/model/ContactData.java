@@ -8,6 +8,8 @@ public class ContactData {
   private final String mobil;
   private final String email;
 
+
+
   public ContactData(String firstname, String lastname, String address, String homephone, String mobil, String email) {
     this.firstname = firstname;
     this.lastname = lastname;
@@ -40,4 +42,5 @@ public class ContactData {
   public String getEmail() {
     return email;
   }
+
 }

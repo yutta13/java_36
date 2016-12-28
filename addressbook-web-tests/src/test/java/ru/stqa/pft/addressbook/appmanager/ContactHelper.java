@@ -22,17 +22,17 @@ public class ContactHelper extends HelperBase {
   }
 
   public void fillContactForm(ContactData contactData) {
-    typee(By.name("firstname"), contactData.getFirstname());
-    typee(By.name("lastname"), contactData.getLastname());
-    typee(By.name("address"), contactData.getAddress());
+    type(By.name("firstname"), contactData.getFirstname());
+    type(By.name("lastname"), contactData.getLastname());
+    type(By.name("address"), contactData.getAddress());
     click(By.name("theform"));
-    typee(By.name("home"), contactData.getHomephone());
-    typee(By.name("mobile"), contactData.getMobil());
-    typee(By.name("email"), contactData.getEmail());
+    type(By.name("home"), contactData.getHomephone());
+    type(By.name("mobile"), contactData.getMobil());
+    type(By.name("email"), contactData.getEmail());
 
   }
 
-  private void type(By locator, String text) {
+  public void type(By locator, String text) {
     click(locator);
     wd.findElement(locator).clear();
     wd.findElement(locator).sendKeys(text);
@@ -40,5 +40,14 @@ public class ContactHelper extends HelperBase {
 
   public void initContactCreation() {
     click(By.linkText("add new"));
+  }
+
+  public void selectContact() {
+    click(By.name("selected[]"));
+  }
+
+  public void deleteContact() {
+    wd.findElement(By.xpath("//div[@id='content']/form[2]/div[2]/input")).click();
+    wd.switchTo().alert().accept(); // закрываем диалоговое окно
   }
 }
