@@ -20,11 +20,6 @@ public class ContactHelper extends HelperBase {
     wd.findElement(By.xpath("//div[@id='content']/form[1]/input[22]")).click();
   }
 
-
-  public void click(By locator) {
-    wd.findElement(locator).click();
-  }
-
   public void fillContactForm(ContactData contactData) {
     type(By.name("firstname"), contactData.getFirstname());
     type(By.name("lastname"), contactData.getLastname());
@@ -33,12 +28,6 @@ public class ContactHelper extends HelperBase {
     type(By.name("mobile"), contactData.getMobil());
     type(By.name("email"), contactData.getEmail());
 
-  }
-
-  public void type(By locator, String text) {
-    click(locator);
-    wd.findElement(locator).clear();
-    wd.findElement(locator).sendKeys(text);
   }
 
   public void initContactCreation() {
