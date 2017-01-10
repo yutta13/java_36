@@ -2,6 +2,7 @@ package ru.stqa.pft.sandbox;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.openqa.selenium.remote.BrowserType;
 
 /**
  * Created by uttabondarenko on 09.01.17.
