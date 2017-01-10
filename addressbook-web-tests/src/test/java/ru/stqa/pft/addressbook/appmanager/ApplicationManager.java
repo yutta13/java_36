@@ -7,6 +7,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import ru.stqa.pft.addressbook.model.ContactData;
+
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.remote.BrowserType;
 
@@ -29,11 +31,11 @@ public class ApplicationManager {
 
 
   public void init() {
-    if (browser == BrowserType.FIREFOX) {
+    if (Objects.equals(browser, BrowserType.FIREFOX)) {
       wd = new FirefoxDriver();
-    } else if (browser == BrowserType.CHROME) {
+    } else if (Objects.equals(browser, BrowserType.CHROME)) {
       wd = new ChromeDriver();
-    } else if (browser == BrowserType.SAFARI) {
+    } else if (Objects.equals(browser, BrowserType.SAFARI)) {
       wd = new SafariDriver();
     }
 
