@@ -70,9 +70,12 @@ public class ContactHelper extends HelperBase {
   }
 
   public void returntoHomePage() {
+    click(By.linkText("home"));
+  }
 
-      click(By.linkText("home"));
 
+  public int getContactCount() {
+    return wd.findElements(By.name("selected[]")).size();
   }
 }
 
