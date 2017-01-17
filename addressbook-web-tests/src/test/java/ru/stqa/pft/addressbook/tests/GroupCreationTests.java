@@ -32,7 +32,8 @@ public class GroupCreationTests extends TestBase {
         max = g.getId();
       }
     }
-
+    group.setId(max);
+    before.add(group);
     Assert.assertEquals(new HashSet<Object>(before),new HashSet<Object>(after));
   }
 
