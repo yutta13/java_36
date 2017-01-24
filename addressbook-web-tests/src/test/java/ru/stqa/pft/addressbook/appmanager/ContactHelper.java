@@ -8,7 +8,9 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by uttabondarenko on 27.12.16.
@@ -92,6 +94,23 @@ public class ContactHelper extends HelperBase {
   public List<ContactData> list() {
 
     List<ContactData> contacts = new ArrayList<ContactData>();
+    List<WebElement> elements = wd.findElements(By.name("entry"));
+    for (WebElement element : elements) {
+      List<WebElement> cells = element.findElements(By.tagName("td")); //разбиваем на столбцы
+      String lastName = cells.get(1).getText();
+      String firstName = cells.get(2).getText();
+      int id = Integer.parseInt(element.findElement(By.tagName("input")). getAttribute("value")) ;
+      ContactData contact = new ContactData().withId(id).withFirstname(firstName).withLastname(lastName); //создаем обьект
+      contacts.add(contact); //добавляем созданный обьект в список
+
+    }
+    return contacts;
+
+  }
+
+  public Set<ContactData> all() {
+
+    Set<ContactData> contacts = new HashSet<>();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {
       List<WebElement> cells = element.findElements(By.tagName("td")); //разбиваем на столбцы
