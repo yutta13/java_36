@@ -11,6 +11,7 @@ import java.util.List;
  * Created by uttabondarenko on 28.12.16.
  */
 public class ContactDeletionTest extends TestBase {
+
   @BeforeMethod
   public void ensurePreconditions() {
     if (app.contact().list().size() == 0) {
