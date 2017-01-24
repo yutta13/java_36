@@ -1,16 +1,13 @@
 package ru.stqa.pft.addressbook.appmanager;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.safari.SafariDriver;
-import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-import org.openqa.selenium.remote.BrowserType;
 
 /**
  * Created by uttabondarenko on 27.12.16.
