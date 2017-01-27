@@ -62,5 +62,6 @@ public class ApplicationManager {
   }
   public NavigationHelper goTo() {
     return navigationHelper;
+
   }
 }

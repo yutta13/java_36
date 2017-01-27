@@ -108,9 +108,9 @@ public class ContactHelper extends HelperBase {
       int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
       String lastName = cells.get(1).getText();
       String firstName = cells.get(2).getText();
-      String[] phones = cells.get(5).getText().split("\n");
+      String allPhones = cells.get(5).getText();
      contactCache.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName)
-              .withHomephone(phones[0]).withMobil(phones[1])); //создаем обьект
+              .withAllPhones(allPhones));
     }
     return new Contacts(contactCache);
 
