@@ -102,20 +102,47 @@ public class ContactHelper extends HelperBase {
       return new Contacts(contactCache);
     }
     contactCache = new Contacts();
-    List<WebElement> elements = wd.findElements(By.name("entry"));
-    for (WebElement element : elements) {
-      List<WebElement> cells = element.findElements(By.tagName("td")); //разбиваем на столбцы
+    List<WebElement> rows = wd.findElements(By.name("entry"));
+    for (WebElement row : rows) {
+      List<WebElement> cells = row.findElements(By.tagName("td")); //разбиваем на столбцы
+      int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
       String lastName = cells.get(1).getText();
       String firstName = cells.get(2).getText();
-      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      ContactData contact = new ContactData().withId(id).withFirstname(firstName).withLastname(lastName); //создаем обьект
-      contactCache.add(contact); //добавляем созданный обьект в список
-
+      String[] phones = cells.get(5).getText().split("\n");
+     contactCache.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName)
+              .withHomephone(phones[0]).withMobil(phones[1])); //создаем обьект
     }
     return new Contacts(contactCache);
 
   }
 
+  public ContactData infoFromEditForm(ContactData contact) {
+    initContactModificationById(contact.getId());
+      String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+      String lastname= wd.findElement(By.name("lastname")).getAttribute("value");
+      String home= wd.findElement(By.name("home")).getAttribute("value");
+      String mobil= wd.findElement(By.name("mobile")).getAttribute("value");
+      wd.navigate().back();
+      return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
+              .withHomephone(home).withMobil(mobil);
+
+  }
+
+  private void initContactModificationById(int id) {
+
+    WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s']", id)));
+    WebElement row =  checkbox.findElement(By.xpath("./../.."));
+    List<WebElement> cells = row.findElements(By.tagName("td"));
+    cells.get(7).findElement(By.tagName("a")).click();
+
+//второй вариант
+  //wd.findElement(By.xpath(String.format("//input[@value='%s']/../../td[8]/a", id))).click();
+
+//третий вариант
+  //wd.findElement(By.xpath(String.format("//tr[.//input[@value='%s']]/td[8]/a", id))).click();
+
+   // wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
+  }
 }
 
 
