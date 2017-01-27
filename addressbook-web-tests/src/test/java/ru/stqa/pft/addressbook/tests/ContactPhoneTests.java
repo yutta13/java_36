@@ -1,14 +1,12 @@
 package ru.stqa.pft.addressbook.tests;
-
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Created by uttabondarenko on 27.01.17.
@@ -27,6 +25,9 @@ public class ContactPhoneTests extends TestBase {
     app.goTo().HomePage();
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
+
+    assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
+
   }
 
   private String mergePhones(ContactData contact) {
