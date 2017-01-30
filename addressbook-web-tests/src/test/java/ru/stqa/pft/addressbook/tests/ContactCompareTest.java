@@ -39,21 +39,21 @@ public class ContactCompareTest extends TestBase{
   private String mergeAddress(ContactData contact) {
     return Arrays.asList(contact.getAddress())
             .stream().filter((s) -> ! s.equals(""))
-            .map(ContactAddressTests::cleaned)
+            .map(ContactCompareTest::cleaned)
             .collect(Collectors.joining("\n"));
 
   }
   private String mergePhones(ContactData contact) {
     return Arrays.asList(contact.getHomephone(), contact.getMobil())
             .stream().filter((s) -> ! s.equals(""))
-            .map(ContactPhoneTests::cleaned)
+            .map(ContactCompareTest::cleaned)
             .collect(Collectors.joining("\n"));
 
   }
   private String mergeEmails(ContactData contact) {
     return Arrays.asList(contact.getEmail(), contact.getEmail2(),contact.getEmail3())
             .stream().filter((s) -> ! s.equals(""))
-            .map(ContactEmailTests::cleaned)
+            .map(ContactCompareTest::cleaned)
             .collect(Collectors.joining("\n"));
   }
   static String cleaned(String data) {
