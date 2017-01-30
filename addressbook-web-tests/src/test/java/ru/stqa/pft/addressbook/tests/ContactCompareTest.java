@@ -56,6 +56,7 @@ public class ContactCompareTest extends TestBase{
             .map(ContactCompareTest::cleaned)
             .collect(Collectors.joining("\n"));
   }
+
   static String cleaned(String data) {
     return data.replaceAll("\\s"," ").replaceAll("[-()]", " ");
   }
