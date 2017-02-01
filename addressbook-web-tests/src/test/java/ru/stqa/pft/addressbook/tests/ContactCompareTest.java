@@ -25,7 +25,7 @@ public class ContactCompareTest extends TestBase{
   }
 
 
-  @Test
+  @Test (enabled = false)
   public void testCompareTest() {
     app.goTo().HomePage();
     ContactData contact = app.contact().all().iterator().next();

@@ -22,7 +22,7 @@ public class ContactDetailTest extends TestBase {
     }
   }
 
-  @Test
+  @Test (enabled = false)
   public void testDetailTest() {
     app.goTo().HomePage();
     ContactData contact = app.contact().all().iterator().next();
