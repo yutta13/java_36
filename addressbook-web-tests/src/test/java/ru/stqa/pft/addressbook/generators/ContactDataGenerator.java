@@ -57,9 +57,10 @@ public class ContactDataGenerator {
     XStream xstream = new XStream();
     xstream.processAnnotations(ContactData.class);
     String xml = xstream.toXML(contacts);
-    Writer writer = new FileWriter(file);
-    writer.write(xml);
-    writer.close();
+    try (
+      Writer writer = new FileWriter(file)){
+      writer.write(xml);
+    }
   }
 
 
@@ -71,7 +72,6 @@ public class ContactDataGenerator {
                 , contact.getFirstname(), contact.getLastname(), contact.getMobil(), contact.getEmail()
                 , contact.getAddress()));
       }
-      writer.close();
     }
   }
 
@@ -83,8 +83,7 @@ public class ContactDataGenerator {
               .withLastname(String.format("lastname %s", i))
               .withMobil(String.format("+7900100222%s", i))
               .withEmail(String.format("test@mail%s.ru", i))
-              .withAddress(String.format("street %s", i))
-      .withPhoto(File.));
+              .withAddress(String.format("street %s", i)));
 
 
     }
