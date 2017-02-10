@@ -26,16 +26,20 @@ public class ApplicationManager {
   private String browser;
   private NavigationHelper navigationHelper;
   private GroupHelper groupHelper;
+  private DbHelper dbHelper;
+
+
 
   public ApplicationManager(String browser){
     this.browser = browser;
     properties = new Properties();
   }
 
-
   public void init() throws IOException {
     String target = System.getProperty("target", "local");
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+
+    dbHelper = new DbHelper();
 
     if (Objects.equals(browser, BrowserType.FIREFOX)) {
       wd = new FirefoxDriver();
@@ -55,22 +59,27 @@ public class ApplicationManager {
     sessionHelper.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPassword"));
   }
 
-
-
   public void stop() {
     wd.quit();
   }
 
-
-
   public GroupHelper group() {
     return groupHelper;
   }
+
   public ContactHelper contact() {
     return contactHelper;
   }
+
   public NavigationHelper goTo() {
     return navigationHelper;
 
   }
+
+  public DbHelper db() {
+    return dbHelper;
+  }
+
+
+
 }
