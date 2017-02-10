@@ -2,37 +2,70 @@ package ru.stqa.pft.addressbook.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 
 @XStreamAlias("contact")
-
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
   @XStreamOmitField
+  @Id
   private int id = Integer.MAX_VALUE;
+  @Column (name = "firstname")
   private  String firstname;
+
+  @Column (name = "lastname")
   private  String lastname;
+
+  @Column (name = "address")
+  @Type(type = "text")
   private  String address;
+
+  @Column (name = "home")
+  @Type(type = "text")
   private  String homephone;
+
+  @Column (name = "mobile")
+  @Type(type = "text")
   private  String mobil;
+  @Type(type = "text")
   private  String email;
+  @Type(type = "text")
   private  String email2;
+  @Type(type = "text")
   private  String email3;
+
+  @Transient
   private  String group;
+  @Transient
   private  String allPhones;
+  @Transient
   private  String allEmails;
-  private File photo;
+
+  @Override
+  public String toString() {
+    return "ContactData{" +
+            "firstname='" + firstname + '\'' +
+            ", lastname='" + lastname + '\'' +
+            '}';
+  }
+
+  @Column (name = "photo")
+  @Type(type = "text")
+  private String  photo;
+
+  public File getPhoto() {return new File(photo);}
 
   public String getAllEmails() {
     return allEmails;
   }
 
-  public File getPhoto() {
-    return photo;
-  }
 
   public ContactData withPhoto(File photo) {
-    this.photo = photo;
+    this.photo = photo.getPath();
     return this;
   }
 
@@ -44,6 +77,7 @@ public class ContactData {
   public String getAllPhones() {
     return allPhones;
   }
+
   public ContactData withAllPhones(String allPhones) {
     this.allPhones  = allPhones;
     return this;
@@ -136,16 +170,6 @@ public class ContactData {
 
   public String getGroup() {
     return group;
-  }
-
-  //**************************
-  @Override
-  public String toString() {
-    return "ContactData{" +
-            "id='" + id + '\'' +
-            ", firstname='" + firstname + '\'' +
-            ", lastname='" + lastname + '\'' +
-            '}';
   }
 
   @Override
