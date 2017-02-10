@@ -35,13 +35,16 @@ public class ContactCreation extends TestBase {
             return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
         }
     }
-    @Test(dataProvider = "validContacts")
-    public void testContactCreation(ContactData contact) {
-        Contacts before = app.contact().all();
-  //      File photo = new File("src/test/resources/stru.png");
+//(dataProvider = "validContacts")
+    @Test
+    public void testContactCreation() {
+        Contacts before = app.db().contacts();
+        File photo = new File("src/test/resources/stru.png");
+        ContactData contact = new ContactData().withFirstname("Firstname1").withLastname("Lastname2").withPhoto(photo);
         app.contact().create(contact);
+        app.goTo().HomePage();
         assertThat(app.contact().Count(), equalTo(before.size() + 1));
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertThat(after, equalTo(
                 before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
 
