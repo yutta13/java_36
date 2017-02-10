@@ -38,7 +38,7 @@ public class ContactCreation extends TestBase {
     @Test(dataProvider = "validContacts")
     public void testContactCreation(ContactData contact) {
         Contacts before = app.contact().all();
-        File photo = new File("src/test/resources/stru.png");
+  //      File photo = new File("src/test/resources/stru.png");
         app.contact().create(contact);
         assertThat(app.contact().Count(), equalTo(before.size() + 1));
         Contacts after = app.contact().all();
