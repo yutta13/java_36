@@ -3,20 +3,27 @@ package ru.stqa.pft.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "addressbook")
 public class ContactData {
+
+
   @Id
   @Column(name = "id")
   private int id = Integer.MAX_VALUE;
+
   @Expose
   @Column(name = "firstname")
   private String firstname;
+
   @Expose
   @Column(name = "lastname")
   private String lastname;
@@ -38,8 +45,11 @@ public class ContactData {
   private String email3;
   @Transient
   private String address;
-  @Transient
-  private  String group;
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupData> groups = new HashSet<GroupData>();
+
   @Transient
   private  String allPhones;
   @Transient
@@ -132,11 +142,6 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withGroup(String group) {
-    this.group = group;
-    return this;
-
-  }
 
   @Override
   public boolean equals(Object o) {
@@ -156,6 +161,10 @@ public class ContactData {
     result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
     result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
     return result;
+  }
+
+  public Groups getGroups() {
+    return new Groups(groups);
   }
 
   public String getFirstname() {
@@ -188,8 +197,9 @@ public class ContactData {
     return email3;
   }
 
-  public String getGroup() {
-    return group;
-  }
 
+  public ContactData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
+  }
 }

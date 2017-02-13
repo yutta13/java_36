@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.io.File;
 import java.util.List;
@@ -39,12 +40,14 @@ public class ContactHelper extends HelperBase {
   //  type(By.name("email3"), contactData.getEmail3());
  //   attach(By.name("photo"), contactData.getPhoto());
 
-    if (creation) {
-      if (contactData.getGroup() != null)
-        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-    } else {
-      Assert.assertFalse(isElementPresent(By.name("new_group")));
-    }
+   if (creation) {
+     if (contactData.getGroups().size() > 0 ) {
+       Assert.assertTrue(contactData.getGroups().size() == 1);
+       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+     }
+   } else {
+     Assert.assertFalse(isElementPresent(By.name("new_group")));
+   }
   }
 
   public void initContactCreation() {
@@ -172,6 +175,28 @@ public class ContactHelper extends HelperBase {
 
    // wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
   }
+
+
+  public void moveIntoGroup(ContactData movingContact, GroupData selectedGroup) {
+    selectContactByID(movingContact.getId());
+    selectWithGroup(selectedGroup);
+    click(By.name("add"));
+  }
+
+  private void selectWithGroup(GroupData selectedGroup) {
+    new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(selectedGroup.getName());
+  }
+
+  public void deleteContactFromGroup(ContactData movingContact, GroupData selectedGroup) {
+    selectGroupWithFilter(selectedGroup);
+    selectContactByID(movingContact.getId());
+    click(By.name("remove"));
+  }
+
+  private void selectGroupWithFilter(GroupData selectedGroup) {
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText(selectedGroup.getName());
+  }
+
 }
 
 
