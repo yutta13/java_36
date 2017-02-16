@@ -9,10 +9,11 @@ dependencies {
     compile 'org.testng:testng:6.10'
     compile 'org.seleniumhq.selenium:selenium-java:2.53.1'
     compile 'org.hamcrest:java-hamcrest:2.0.0.0'
+    compile 'commons-net:commons-net:3.6'
 }
 
 
-Test {
+test {
     useTestNG {
         suites 'src/test/resources/testng-groups.xml'
     }
@@ -26,3 +27,4 @@ Test {
         systemProperty 'verifyUI', "${target}"
     }
 }
+
