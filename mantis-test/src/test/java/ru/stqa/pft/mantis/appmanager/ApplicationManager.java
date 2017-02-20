@@ -5,7 +5,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.safari.SafariDriver;
-import ru.stqa.pft.mantis.tests.RegistrationTests;
 
 import java.io.File;
 import java.io.FileReader;
@@ -22,6 +21,10 @@ public class ApplicationManager {
   private WebDriver wd;
   private String browser;
   private RegistrationHelper registrationHelper;
+  private FtpHelper ftp;
+  private MailHelper mailHelper;
+  private NavigationHelper navigationHelper;
+
 
 
   public ApplicationManager(String browser) {
@@ -57,6 +60,13 @@ public class ApplicationManager {
     return registrationHelper;
   }
 
+  public FtpHelper ftp() {
+    if (ftp == null) {
+      ftp = new FtpHelper(this);
+    }
+    return ftp;
+  }
+
   public WebDriver getDriver() {
     if (wd == null) {
       if (Objects.equals(browser, BrowserType.FIREFOX)) {
@@ -73,5 +83,19 @@ public class ApplicationManager {
       return wd;
     }
 
+
+    public MailHelper mail() {
+    if (mailHelper == null) {
+      mailHelper = new MailHelper(this);
+    }
+    return mailHelper;
+    }
+
+  public NavigationHelper navigation() {
+    if (navigationHelper == null) {
+      navigationHelper =  new NavigationHelper(this);
+    }
+    return navigationHelper;
+  }
 }
 

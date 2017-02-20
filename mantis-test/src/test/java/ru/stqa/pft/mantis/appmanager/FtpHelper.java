@@ -1,12 +1,14 @@
 package ru.stqa.pft.mantis.appmanager;
 
-
 import org.apache.commons.net.ftp.FTPClient;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 /**
  * Created by uttabondarenko on 16.02.17.
  */
-
 public class FtpHelper {
 
   private final ApplicationManager app;
@@ -19,7 +21,7 @@ public class FtpHelper {
 
   public void upload(File file, String target, String  backup) throws IOException {
     ftp.connect(app.getProperty("ftp.host"));
-    ftp.login(app.getProperty("ftp.login"), app.getProperty("ftp.mantis.password"));
+    ftp.login(app.getProperty("ftp.login"), app.getProperty("ftp.password"));
     ftp.deleteFile(backup);
     ftp.rename(target, backup);
     ftp.enterLocalPassiveMode();
@@ -27,8 +29,8 @@ public class FtpHelper {
     ftp.disconnect();
   }
 
-  public void restore(String target, String  backup) throws IOException {ftp.connect(app.getProperty("ftp.mantis.host"));
-    ftp.login(app.getProperty("ftp.mantis.login"), app.getProperty("ftp.mantis.password"));
+  public void restore(String target, String  backup) throws IOException {ftp.connect(app.getProperty("ftp.host"));
+    ftp.login(app.getProperty("ftp.login"), app.getProperty("ftp.password"));
     ftp.deleteFile(target);
     ftp.rename(backup, target);
     ftp.disconnect();
