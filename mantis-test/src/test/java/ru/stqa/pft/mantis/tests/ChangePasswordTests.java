@@ -10,24 +10,24 @@ import ru.stqa.pft.mantis.model.UserData;
  */
 public class ChangePasswordTests extends TestBase{
 
+ @BeforeMethod
+   public void startMailServer() {
+     app.mail().start();
+   }
 
-  @BeforeMethod
-  public void startMailServer() {
-    app.mail().start();
-  }
 
   @Test
   public void testUserPasswordChange() {
-    UserData user = new UserData().withUsername("Java Training").withEmail("javatraining2@localhost");
+    UserData user = new UserData().withUsername("Yutta").withEmail("yutta@localhost");
     app.navigation().uiLogin();
-    app.navigation().openManageUserPage();
+    app.navigation().manageUsersPage();
     app.navigation().selectUser(user);
     app.navigation().resetPassowrd();
     System.out.println();
   }
 
-  @AfterMethod(alwaysRun = true)
-  public void stopMailServer() {
+ @AfterMethod(alwaysRun = true)
+ public void stopMailServer() {
     app.mail().stop();
   }
 

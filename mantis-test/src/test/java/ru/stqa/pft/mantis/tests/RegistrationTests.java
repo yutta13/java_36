@@ -1,6 +1,5 @@
 package ru.stqa.pft.mantis.tests;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -24,7 +23,7 @@ public class RegistrationTests extends TestBase{
 
 
   @Test
-  public void testRegistration() throws IOException, MessagingException, javax.mail.MessagingException {
+  public void testRegistration() throws IOException, javax.mail.MessagingException, IOException {
     String email = "user1@localhost.localdomain";
     String user = "user1";
     String password = "password";

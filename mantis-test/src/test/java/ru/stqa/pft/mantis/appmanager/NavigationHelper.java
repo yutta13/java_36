@@ -1,6 +1,7 @@
 package ru.stqa.pft.mantis.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.stqa.pft.mantis.model.UserData;
 
 import java.util.Objects;
@@ -17,28 +18,32 @@ public class NavigationHelper extends HelperBase {
   }
 
   public void uiLogin() {
-    wd.get(app.getProperty("web.mantis.besUrl") + "login_page.php");
-    type(By.xpath("//input[@id='username']"), app.getProperty("web.mantis.adminLogin"));
-    type(By.xpath("//input[@type='password']"), app.getProperty("web.mantis.adminPassword"));
+    wd.get(app.getProperty("web.baseUrl") + "login_page.php");
+    type(By.xpath("//input[@id='username']"), app.getProperty("web.adminLogin"));
+    type(By.xpath("//input[@type='password']"), app.getProperty("web.adminPassword"));
     wd.findElement(By.xpath("//input[@type='submit']")).click();
   }
+  public void managePage() {
+    wd.findElement(By.xpath("//a[@href='/mantisbt-2.1.0/manage_user_page.php']")).click();
 
-  public void openManagePage() {
-    wd.findElement(By.cssSelector("a.manage-menu-link")).click();
   }
 
-  public void openManageUserPage() {
-    openManagePage();
-    wd.findElement(By.xpath("//a[@href='/mantisbt-1.3.2/manage_user_page.php']")).click();
+  public void manageUsersPage(){
+    managePage();
+    click(By.linkText("Управление пользователями"));
+
   }
+
 
   public void selectUser(UserData user) {
-    wd.findElements(By.xpath("//div[@class='form-container']//tbody//tr//td[1]//a"))
-            .stream().filter(webElement -> Objects.equals(webElement.getText(), user.getUsername())).findFirst().get().click();
-
+    String locator = String.format("//a[contains(@href, 'user_id=%s')]", user.getId());
+    click(By.xpath(locator));
+//    wait.until(ExpectedConditions.urlContains(String.format("manage_user_edit_page.php?user_id=%s", user.getId()))); }
   }
+
 
   public void resetPassowrd() {
-    wd.findElement(By.xpath("//form[@id='manage-user-reset-form']//input[@class='button']")).click();
-  }
+    click(By.cssSelector("input[value='Сбросить пароль']"));
+    wait.until(ExpectedConditions.urlContains("manage_user_page.php"));}
+
 }

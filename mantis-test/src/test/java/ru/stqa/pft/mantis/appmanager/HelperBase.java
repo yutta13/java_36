@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 
@@ -14,10 +15,12 @@ public class HelperBase {
 
   protected ApplicationManager app;
   protected WebDriver wd;
+  protected WebDriverWait wait;
 
   public HelperBase(ApplicationManager app) {
     this.app = app;
     this.wd = app.getDriver();
+    this.wait = new WebDriverWait(wd, 15);
   }
 
   protected void click(By locator) {
