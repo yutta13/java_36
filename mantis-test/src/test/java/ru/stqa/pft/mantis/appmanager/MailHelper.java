@@ -1,4 +1,5 @@
 package ru.stqa.pft.mantis.appmanager;
+import ru.lanwen.verbalregex.VerbalExpression;
 import ru.stqa.pft.mantis.model.MailMessage;
 import org.subethamail.wiser.Wiser;
 import org.subethamail.wiser.WiserMessage;
@@ -47,8 +48,11 @@ public class MailHelper {
     }
   }
 
+
+
+
   public void start() {
-    wiser.setPort(2224);
+    wiser.setPort(2223);
     wiser.start();
   }
 
