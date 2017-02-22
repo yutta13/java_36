@@ -38,7 +38,7 @@ public class ChangePasswordTests extends TestBase{
     String confirmLink = findConfirmationLink(mailMessages, user.getEmail());
     app.registration().logout();
     app.registration().finish(confirmLink, password);
-    assertTrue(app.newSession().login(user.getUsername(), password));
+    assertTrue(app.newSession().login(user.getUsername(), user.getPassword()));
     app.mail().stop();
 
   }

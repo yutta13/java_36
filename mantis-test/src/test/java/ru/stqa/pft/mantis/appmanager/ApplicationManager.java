@@ -24,7 +24,7 @@ public class ApplicationManager {
   private FtpHelper ftp;
   private MailHelper mailHelper;
   private NavigationHelper navigationHelper;
-
+  private SoapHelper soapHelper;
 
 
   public ApplicationManager(String browser) {
@@ -97,5 +97,14 @@ public class ApplicationManager {
     }
     return navigationHelper;
   }
+
+  public SoapHelper soap() {
+
+    if (soapHelper == null) {
+      soapHelper =  new SoapHelper(this);
+    }
+    return soapHelper;
+  }
+
 }
 
