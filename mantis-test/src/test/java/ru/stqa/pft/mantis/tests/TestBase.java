@@ -49,4 +49,20 @@ public class TestBase {
     }
   }
 
+  public boolean isBugifyIssueOpen(int issueId) throws IOException, ServiceException {
+    String issueStatus = app.getBugifyHelper().getIssueStatusByID(issueId);
+    if ((issueStatus.equals("Resolved")) || (issueStatus.equals("Closed")) ||
+            (issueStatus.equals("Fixed"))) {
+      return false;
+    }
+    return true;
+  }
+
+  public void skipIfBugifyIssueNotFixed(int issueId) throws IOException, ServiceException {
+    if (isBugifyIssueOpen(issueId)) {
+      throw new SkipException("Ignored because of issue " + issueId);
+    }
+  }
+
+
 }

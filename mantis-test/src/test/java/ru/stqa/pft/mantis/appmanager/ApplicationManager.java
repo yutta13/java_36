@@ -25,6 +25,7 @@ public class ApplicationManager {
   private MailHelper mailHelper;
   private NavigationHelper navigationHelper;
   private SoapHelper soapHelper;
+  private BugifyHelper bugifyHelper;
 
 
   public ApplicationManager(String browser) {
@@ -105,6 +106,15 @@ public class ApplicationManager {
     }
     return soapHelper;
   }
+
+  public BugifyHelper getBugifyHelper() {
+    if (bugifyHelper == null) {
+      bugifyHelper = new BugifyHelper(this);
+    }
+    return bugifyHelper;
+  }
+
+
 
 }
 
