@@ -59,4 +59,17 @@ public class SoapHelper {
             .withName(createdIssueData.getProject().getName());
 
   }
+
+  public Issue getIssueById(int issueId) throws MalformedURLException, ServiceException, RemoteException {
+    //открываем соединение
+    MantisConnectPortType mantisConnectPort = getMantisConnect();
+    IssueData issue = mantisConnectPort.mc_issue_get("administrator", "root1", BigInteger.valueOf(issueId));
+    ObjectRef status = issue.getStatus();
+    status.getName();
+    return  new Issue().withId(issue.getId().intValue()).withSummary(issue.getSummary()).
+            withDescription(issue.getDescription()).withStatus(issue.getStatus().getName()).
+            withResolution(issue.getResolution().getName()).withProject(new Project().
+            withId(issue.getProject().getId().intValue()).
+            withName(issue.getProject().getName()));
+  }
 }
