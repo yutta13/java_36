@@ -19,7 +19,7 @@ public class Issue {
 
   public Issue withName(String name) {
     this.name = name;
-    return(this);
+    return this;
   }
 
   public int getId() {
@@ -28,7 +28,7 @@ public class Issue {
 
   public Issue withId(int id) {
     this.id = id;
-    return(this);
+    return this;
   }
 
   public String getSummary() {
@@ -37,7 +37,7 @@ public class Issue {
 
   public Issue withSummary(String summary) {
     this.summary = summary;
-    return(this);
+    return this;
   }
 
   public String getDescription() {
@@ -46,7 +46,7 @@ public class Issue {
 
   public Issue withDescription(String description) {
     this.description = description;
-    return(this);
+    return this;
   }
 
   public Project getProject() {
@@ -55,7 +55,7 @@ public class Issue {
 
   public Issue withProject(Project project) {
     this.project = project;
-    return(this);
+    return this;
   }
 
   public String getResolution() {
@@ -68,11 +68,11 @@ public class Issue {
 
   public Issue withStatus(String status) {
     this.status = status;
-    return(this);
+    return this;
   }
 
   public Issue withResolution(String resolution) {
     this.resolution = resolution;
-    return(this);
+    return this;
   }
 }
